@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>New product</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="save">
+    <a href="{% url 'lista_cotação' %}">cancel</a>
+    <button onclick="location.href='{% url 'cotação_delete'  pk=object.pk %}'" type="button" class="btn btn-danger">
+      Apagar</button>
+  </form>
+{% endblock %}

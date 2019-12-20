@@ -1,0 +1,68 @@
+{% extends "body.html" %}
+{% block body %}
+
+<div class="w3-container" id="designers" style="margin-top:85px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Lista de Cotações</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Esta lista de cotações feitas ate agora pelos funcionarios da Pousada casa de Pedra.</p>
+    <p>Cada cotaçao e calculado de forma indepedente com base nos dados fornecidos pelos
+        funcionario, as bases sao o valor da diaria, check-in, check-out e desconto fornecido...
+    </p>
+    <p><b>Lista de cotações</b>:</p>
+</div>
+
+<!-- The Team -->
+
+<div class="w3-row-padding w3-grayscale">
+    {% for person in people %}
+    <div class="w3-col m4 w3-margin-bottom">
+        <div class="w3-light-grey">
+            <h2<b>ID</b>: <a href="{% url 'person_change2' person.pk %}">{{ person.id }}</a></h2>
+            <div class="w3-container">
+                <h7><a href="{{ person.cotacao_detail }}"><b> {{ person.name}}</a></b></h7>
+                <p id='id_author'>Adicionado Por: <b>{{ person.author }}</b></p>
+                <p>
+                    <h8><b>Check-in</b>:</h8>
+                </p>
+                <p class="w3-opacity" style="font-size: 14px; line-height: 0px; text-align: right;">
+                    {{ person.checkin }}</p>
+                <p>
+                    <h8><b>Check-out</b>:</h8>
+                </p>
+                <p class="w3-opacity" style="font-size: 14px; line-height: 0px; text-align: right;">
+                    {{ person.checkout }}</p>
+                <p>
+                    <h8><b>Telefone</b>:</h8>
+                </p>
+                <p class="w3-opacity" style="font-size: 14px; line-height: 0px; text-align: right;">
+                    {{ person.telefone }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination_geral">
+    {% if is_paginated %}
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <span><a href="?page={{ page_obj.previous_page_number }}">&ShortLeftArrow;</a></span>
+        {% else %}
+        <span class="disabled"><span>&ShortLeftArrow;</span></span>
+        {% endif %}
+        {% for i in paginator.page_range %}
+        {% if page_obj.number == i %}
+        <span class="active"><span>{{ i }} <span class="sr-only">(Atual)</span></span></span>
+        {% else %}
+        <span><a href="?page={{ i }}">{{ i }}</a></span>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <span><a href="?page={{ page_obj.next_page_number }}">&ShortRightArrow;</a></span>
+        {% else %}
+        <span class="disabled"><span>&ShortRightArrow;</span></span>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}°

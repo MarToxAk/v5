@@ -1,0 +1,17 @@
+{% extends "body.html" %}
+{% block body %}
+<div class="w3-container" id="Adicionar" style="margin-top:85px">
+  <h1 class="w3-xxxlarge w3-text-red"><b>Adicionar Cotação</b></h1>
+  <hr style="width:50px;border:5px solid red" class="w3-round">
+  <p>Informe os dados do hospede no formulário abaixo, para que possa esta fazer a cotação.</p>
+  <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Adicionar Cotação</button>
+  </form>
+</div>
+
+
+<script>
+$('#id_dialy_of_price').mask('###0,00', {reverse: true});
+</script>
+{% endblock %}

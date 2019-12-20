@@ -1,0 +1,5 @@
+{% for c in cotações %}
+{% for b in c.user.all %}
+{{ b }}</br>
+{% endfor %}
+{% endfor %}

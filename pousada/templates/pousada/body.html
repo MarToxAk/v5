@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<!DOCTYPE HTML>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link href="{% static "/css/estilo.css" %}" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+        <title>
+            Pousada Casa de Pedra
+        </title>
+       
+    </head>
+    <body>
+        <div id="topo">
+            <span>Pousada Casa de Pedra - Ilhabela</span>
+        </div>
+        {% block body %}{% endblock %}
+    </body>
+    
+    <div id="roda-pe">
+        <span></span>
+        <div id="roda-pe-center"></div>
+    </div>
+</html>

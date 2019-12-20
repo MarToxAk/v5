@@ -1,0 +1,17 @@
+table.preço {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+}
+th.nome_pousada {
+    text-align: center;
+}
+td.valor_pousada {
+    text-align: left;
+    width: 38%;
+    padding: 4px;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+}

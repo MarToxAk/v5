@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste</title>
+</head>
+<body>
+
+<div class="w3-container" id="Adicionar" style="margin-top:85px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Adicionar Cotação</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Informe os dados do hospede no formulário abaixo, para que possa esta fazer a cotação.</p>
+    <form method="post">{% csrf_token %}
+ <input type="hidden" name="author" value="{{ user.id }}" id="id_author" required="">
+
+        <div class="name">{{ form }}</div>
+        <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Adicionar Cotação
+        </button>
+    </form>
+</div>
+
+</body>
+</html>

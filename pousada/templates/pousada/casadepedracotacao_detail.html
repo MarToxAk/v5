@@ -1,0 +1,71 @@
+{% extends "body.html" %}
+{% load staticfiles %}
+{% block body %}
+
+<div class="w3-container" id="designers" style="margin-top:85px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Textos para ser enviado pelo Wpp</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>
+        Texto pré formatos para ser enviados pelo WhatsApp, já com os valores calculados,
+        e organizados de forma facilitar e agilizar o envio dos dados de venda do WhatsApp.
+    </p>
+    <p><b>Texto para ser enviado pelo WhatsApp</b>:</p>
+</div>
+
+<div class="WPP">
+    <textarea class="textarea" id="textarea_wpp" style="width: 100%;margin: 0px;height: 300px; resize: none;">
+{{ dados.cotacoeswpp }}
+
+        {{dados.valorsite}}
+    </textarea>
+    <button id="id_copia" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" type="button">Copiar
+        Texto</button>
+</div>
+
+<div style="width: 100%;" id="svg-container">
+
+    {% autoescape off %}
+    {{ dados.teste }}
+    {% endautoescape %}
+</div>
+
+<canvas hidden='true' style="border:1px solid #d3d3d3; width: 100%;" id="canvas" width="1000" height="1000"></canvas>
+
+<div id="png-container">{% static "/font/Arial%20Black.ttf" %} -- </div>
+
+<a id="download" download="cotação{{ dados.pk }}.png">
+    <button id="id_download" data-href="" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
+        download="{{ dados.id }}-{{ dados.name }}.png" onclick='forceDownload(this)' type="button">
+        Download
+    </button>
+</a>
+
+
+
+<script>
+    window.onload = function () {
+        var svgString = new XMLSerializer().serializeToString(document.querySelector('svg'));
+        var canvas = document.getElementById("canvas");
+        var DOMURL = self.URL || self.webkitURL || self;
+        var ctx = canvas.getContext("2d");
+        var img = new Image();
+        var svg = new Blob([svgString], { type: "image/svg+xml;charset=UTF-8" });
+        var url = DOMURL.createObjectURL(svg);
+        img.onload = function () {
+            ctx.drawImage(img, 0, 0);
+            var png = canvas.toDataURL("image/png");
+            $(document).ready(function () {
+                $('#id_download').attr("data-href", '' + png + '');
+            });
+            document.querySelector("#png-container").innerHTML = '<a href="' + url + '"></a>';
+            DOMURL.revokeObjectURL(png);
+            console.log(svg);
+        };
+        img.src = url;
+    }
+</script>
+
+<script type="text/javascript" src="{% static '/js/image_download.js' %}"></script>
+<script type="text/javascript" src="{% static '/js/copiar.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,318 @@
+{% extends "body.html" %}
+{% block body %}
+{% load staticfiles %}
+
+{% if form.errors %}
+{% for field in form %}
+{% for error in field.errors %}
+{{ error|escape }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+<div class="w3-container" id="Adicionar" style="margin-top:85px">
+  <h1 class="w3-xxxlarge w3-text-red"><b>Adicionar Cotação</b></h1>
+  <hr style="width:50px;border:5px solid red" class="w3-round">
+  <p>Informe os dados do hospede no formulário abaixo, para que possa esta fazer a cotação.</p>
+  <form method="post">{% csrf_token %}
+    <input type="hidden" name="author" value="{{ user.id }}" id="id_author" required="">
+    <label for="id_name">Nome:</label>
+    <div class="name">{{ form.name }}</div>
+    <label for="id_name">Telefone:</label>
+    <div class="name">{{ form.tel }}</div>
+    <label for="id_checkin_day">Check In:</label>
+    <div class="checkin">{{ form.checkin }}</div>
+    <label for="id_checkout_day">Check Out:</label>
+    <div class="checkout">{{ form.checkout }}</div>
+    <label for="id_person_num">Numero de Pessoas:</label>
+    <div class="person_num">{{ form.person_num }}</div>
+    <label for="id_person_num">Quantas Crianças:</label>
+    <div class="person_num">
+      <select name="kidquestion" id="id_kidquestion">
+        <option onclick="resetElements()" value="0">0 Criança</option>
+        <option onclick="kid1Function()" value="1">1 Criança</option>
+        <option onclick="kid2Function()" value="2">2 Crianças</option>
+        <option onclick="kid3Function()" value="3">3 Crianças</option>
+        <option onclick="kid4Function()" value="4">4 Crianças</option>
+      </select>
+    </div>
+
+    <div class="three">
+      <form action="#" id="mainform" method="get" name="mainform">
+        <span id="myForm"></span>
+    </div>
+    <label for="id_discount">Disconto Inicial:</label>
+    <div class="discount">{{ form.discount }}</div>
+    <label for="id_portion">Numero de Parcelas</label>
+    <div class="portion">{{ form.portion }}</div>
+    <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Adicionar Cotação
+    </button>
+  </form>
+</div>
+
+<form action="#">
+  <fieldset id="products">
+    <legend>Products</legend>
+    <label for="p1">Product</label>
+    <input type="text" name="p1" id="p1">
+  </fieldset>
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
+<script type="text/javascript">
+  (function () {
+    var Products = {
+      count: 1,
+
+      init: function () {
+        var fs = document.getElementById("products");
+        fs.appendChild(this.make("br", { id: "here" }));
+        var btn = fs.appendChild(this.make("select", { type: "option", option: "Add product" }));
+        btn.onclick = (function (_self) {
+          return function () {
+            _self.add();
+            return false;
+          };
+        })(this);
+      },
+
+      add: function () {
+        var id = "p" + ++this.count;
+        var br = document.getElementById("here");
+        br.parentNode.insertBefore(this.make("br"), br);
+        br.parentNode.insertBefore(this.make("label", { htmlFor: id }, "Product "), br);
+        br.parentNode.insertBefore(this.make("input", { type: "text", name: id, id: id }), br);
+        var btn = br.parentNode.insertBefore(this.make("input", { type: "button", value: "Remove", _id: id }), br);
+        btn.onclick = this.remove;
+      },
+
+      remove: function () {
+        var inp = document.getElementById(this._id);
+        var lbl = inp.previousSibling;
+        var br = lbl.previousSibling;
+        this.parentNode.removeChild(br);
+        this.parentNode.removeChild(lbl);
+        this.parentNode.removeChild(inp);
+        this.parentNode.removeChild(this);
+        return false;
+      },
+
+      make: function (type, attrs, content) {
+        var element = document.createElement(type);
+        if (attrs !== undefined) {
+          for (var a in attrs) {
+            element[a] = attrs[a];
+          }
+        }
+        if (content !== undefined) {
+          element.appendChild(document.createTextNode(content));
+        }
+        return element;
+      }
+    };
+
+    Products.init();
+  })();
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    $('#id_tel').mask('+55 (00) 00000-0000');
+    $('#id_dialy_of_price').mask("#.##0,00", { reverse: true });
+    $('#id_kidquestion').change(function () {
+      var str = "";
+      $("#id_kidquestion option:selected").each(function () {
+        str += $(this).text() + "";
+        if (str == "não") {
+          $('#pickNumber').hide();
+        } else {
+          $('#pickNumber').show();
+        }
+      });
+    }).change();
+  });
+
+</script>
+
+<script>
+  $("#id_checkin").datepicker({
+    format: "dd/mm/yyyy",
+    todayBtn: true,
+    autoclose: true,
+    startDate: new Date()
+  })
+    .on("changeDate", function (e) {
+      var checkInDate = e.date, $checkOut = $("#id_checkout");
+      checkInDate.setDate(checkInDate.getDate() + 1);
+      $checkOut.datepicker("setStartDate", checkInDate);
+      $checkOut.datepicker("setDate", checkInDate).focus();
+    });
+
+  $("#id_checkout").datepicker({
+    format: "dd/mm/yyyy",
+    todayBtn: true,
+    autoclose: true
+  });
+
+</script>
+
+<script>
+
+
+  var i = 0; /* Set Global Variable i */
+  function increment() {
+    i += 1; /* Function for automatic increment of field's "Name" attribute. */
+  }
+  /*
+  ---------------------------------------------
+  
+  Function to Remove Form Elements Dynamically
+  ---------------------------------------------
+  
+  */
+  function removeElement(parentDiv, childDiv) {
+    if (childDiv == parentDiv) {
+      alert("The parent div cannot be removed.");
+    }
+    else if (document.getElementById(childDiv)) {
+      var child = document.getElementById(childDiv);
+      var parent = document.getElementById(parentDiv);
+      parent.removeChild(child);
+    }
+    else {
+      alert("Child div has already been removed or does not exist.");
+      return false;
+    }
+  }
+  /*
+  ----------------------------------------------------------------------------
+  
+  Functions that will be called upon, when user click on the Name text field.
+  
+  ----------------------------------------------------------------------------
+  */
+  function kid1Function() {
+    for (var i = 0; i <= 17; i++) {
+      window['o' + i] = document.createElement("option");
+      window['o' + i].setAttribute("value", i);
+      window['o' + i].innerHTML = i + ' Anos';
+    }
+    document.getElementById('myForm').innerHTML = '';
+    var r = document.createElement('span');
+    var y = document.createElement("select");
+    var o = document.createElement("option");
+    o.setAttribute("value", '0');
+    o.innerHTML = '0 Anos';
+    y.setAttribute("Name", "kid1");
+    increment();
+    y.setAttribute("id", "id_kid1");
+    for (var i = 0; i <= 17; i++) {
+      y.appendChild(window['o' + i]);
+    }
+    r.appendChild(y);
+    r.setAttribute("id", "id_kid_span");
+    document.getElementById("myForm").appendChild(r);
+  }
+  /*
+  -----------------------------------------------------------------------------
+  
+
+  
+  ------------------------------------------------------------------------------
+  */
+
+
+  function kid2Function() {
+    for (var i = 0; i <= 17; i++) {
+      window['o' + i] = document.createElement("option");
+      window['o' + i].setAttribute("value", i);
+      window['o' + i].innerHTML = i + ' Anos';
+      window['u' + i] = document.createElement("option");
+      window['u' + i].setAttribute("value", i);
+      window['u' + i].innerHTML = i + ' Anos';
+    }
+    document.getElementById('myForm').innerHTML = '';
+    var r = document.createElement('span');
+    var y = document.createElement("select");
+    var p = document.createElement("select");
+    var o = document.createElement("option");
+    o.setAttribute("value", '0');
+    o.innerHTML = '0 Anos';
+    var u = document.createElement("option");
+    u.setAttribute("value", '0');
+    u.innerHTML = '0 Anos';
+    y.setAttribute("Name", "kid1");
+    increment();
+    y.setAttribute("id", "id_kid1");
+    p.setAttribute("Name", "kid2");
+    increment();
+    p.setAttribute("id", "id_kid2");
+    for (var i = 0; i <= 17; i++) {
+      y.appendChild(window['o' + i]);
+      p.appendChild(window['u' + i]);
+    }
+    r.appendChild(y);
+    r.appendChild(p);
+    r.setAttribute("id", "id_kid_span");
+    document.getElementById("myForm").appendChild(r);
+  }
+
+  function kid3Function() {
+    for (var i = 0; i <= 17; i++) {
+      window['o' + i] = document.createElement("option");
+      window['o' + i].setAttribute("value", i);
+      window['o' + i].innerHTML = i + ' Anos';
+      window['u' + i] = document.createElement("option");
+      window['u' + i].setAttribute("value", i);
+      window['u' + i].innerHTML = i + ' Anos';
+      window['m' + i] = document.createElement("option");
+      window['m' + i].setAttribute("value", i);
+      window['m' + i].innerHTML = i + ' Anos';
+    }
+    document.getElementById('myForm').innerHTML = '';
+    var r = document.createElement('span');
+    var y = document.createElement("select");
+    var p = document.createElement("select");
+    var l = document.createElement("select");
+    var o = document.createElement("option");
+    o.setAttribute("value", '0');
+    o.innerHTML = '0 Anos';
+    var u = document.createElement("option");
+    u.setAttribute("value", '0');
+    u.innerHTML = '0 Anos';
+    var m = document.createElement("option");
+    m.setAttribute("value", '0');
+    m.innerHTML = '0 Anos';
+    y.setAttribute("Name", "kid1");
+    increment();
+    y.setAttribute("id", "id_kid1");
+    p.setAttribute("Name", "kid2");
+    increment();
+    p.setAttribute("id", "id_kid2");
+    l.setAttribute("Name", "kid3");
+    increment();
+    l.setAttribute("id", "id_kid3");
+    for (var i = 0; i <= 17; i++) {
+      y.appendChild(window['o' + i]);
+      p.appendChild(window['u' + i]);
+      l.appendChild(window['m' + i]);
+
+    }
+    r.appendChild(y);
+    r.appendChild(p);
+    r.appendChild(l);
+    r.setAttribute("id", "id_kid_span");
+    document.getElementById("myForm").appendChild(r);
+  }
+
+
+  function resetElements() {
+    document.getElementById('myForm').innerHTML = '';
+  }
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "body.html" %}
+{% block body %}
+{% for dado in dados %}
+<div class="WPP">
+  <p>***GANHE MAIS 5% NAS COMPRAS EFETUADAS DIRETAMENTE COM A POUSADA***</p>
+  <P>DE R${{ dado.total }} por R${{ dado.val_diaria_format }}</P>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "body.html" %}
+{% block body %}
+<div class="w3-container" id="Adicionar" style="margin-top:85px">
+  <h1 class="w3-xxxlarge w3-text-red"><b>Adicionar Cotação</b></h1>
+  <hr style="width:50px;border:5px solid red" class="w3-round">
+  <p>Informe os dados do hospede no formulário abaixo, para que possa esta fazer a cotação.</p>
+  <form method="post" id="personForm" >
+      {% csrf_token %}
+    <div class="w3-section">
+      <label for="id_nome">Nome:</label>
+      <div class="nome">{{ form.nome }}</div>
+      <label for="id_check_in_day">Check In:</label>
+      <div class="check_in">{{ form.check_in }}</div>
+      <label for="id_check_out_day">Check Out:</label>
+      <div class="check_out">{{ form.check_out }}</div>
+      <label for="id_email">Email:</label>
+      <div class="email">{{ form.email }}</div>
+      <label for="id_n_pessoas">Nº Pessoas:</label>
+      <div class="n_pessoas">{{ form.n_pessoas }}</div>
+      <label for="id_valor_disconto">Desconto:</label>
+      <div class="valor_disconto"> {{ form.valor_disconto }} </div>
+      <label for="id_val_diaria">Valor da Diaria:</label>
+      <div class="valor_diaria">{{ form.val_diaria }}</div>
+      <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Adicionar Cotação</button>
+      <a href="{% url 'list' %}">Agora Não</a>
+      </div>
+  </form>
+</div>
+
+{% endblock %}

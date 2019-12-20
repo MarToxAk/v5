@@ -1,0 +1,36 @@
+      @charset "UTF-8";
+      @font-face { font-family:"Arial Black";font-variant:normal;font-style:normal;font-weight:900;src:url("font/teste.ttf")}
+      @font-face { font-family:"Arial";font-variant:normal;font-style:normal;font-weight:normal;src:url("#FontID1") format(svg)}
+      @font-face { font-family:"Arial";font-variant:normal;font-style:normal;font-weight:bold;src:url("#FontID0") format(svg)}
+      .str2 {stroke-width:27;stroke-miterlimit:22.9256}
+      .str0 {stroke-width:13.5;stroke-miterlimit:22.9256}
+      .str3 {stroke:#201E1E;stroke-width:0.9;stroke-miterlimit:22.9256}
+      .str1 {stroke:#282829;stroke-width:0.9;stroke-miterlimit:22.9256}
+      .fil0 {fill:none}
+      .fil2 {fill:#FEFEFE}
+      .fil7 {fill:#373435}
+      .fil8 {fill:#201E1E}
+      .fil5 {fill:#295F2A}
+      .fil6 {fill:#201E1E}
+      .fil1 {fill:url(#id0)}
+      .fil3 {fill:url(#id1)}
+      .fil4 {fill:url(#id2)}
+      .fnt14 {font-weight:normal;font-size:29.17px;font-family:'Arial'}
+      .fnt17 {font-weight:normal;font-size:29.17px;font-family:'Arial'}
+      .fnt11 {font-weight:normal;font-size:29.17px;font-family:'Arial'}
+      .fnt13 {font-weight:bold;font-size:29.17px;font-family:'Arial'}
+      .fnt16 {font-weight:bold;font-size:29.17px;font-family:'Arial'}
+      .fnt10 {font-weight:bold;font-size:29.17px;font-family:'Arial'}
+      .fnt12 {font-weight:900;font-size:29.17px;font-family:'Arial Black'}
+      .fnt15 {font-weight:900;font-size:29.17px;font-family:'Arial Black'}
+      .fnt4 {font-weight:bold;font-size:32.69px;font-family:'Arial'}
+      .fnt8 {font-weight:normal;font-size:33.33px;font-family:'Arial'}
+      .fnt7 {font-weight:bold;font-size:33.33px;font-family:'Arial'}
+      .fnt18 {font-weight:900;font-size:33.33px;font-family:'Arial Black'}
+      .fnt9 {font-weight:900;font-size:33.33px;font-family:'Arial Black'}
+      .fnt2 {font-weight:normal;font-size:33.39px;font-family:'Arial'}
+      .fnt6 {font-weight:normal;font-size:45.83px;font-family:'Arial'}
+      .fnt3 {font-weight:normal;font-size:51.24px;font-family:'Arial'}
+      .fnt1 {font-weight:bold;font-size:54.92px;font-family:'Arial'}
+      .fnt5 {font-weight:900;font-size:66.67px;font-family:'Arial Black'}
+      .fnt0 {font-weight:bold;font-size:77.95px;font-family:'Arial'}

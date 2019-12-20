@@ -1,0 +1,41 @@
+{% extends "body.html" %}
+{% load staticfiles %}
+{% block body %}
+
+<div class="w3-container" id="designers" style="margin-top:85px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Textos para ser enviado pelo Wpp</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>
+        Texto pré formatos para ser enviados pelo WhatsApp, já com os valores calculados,
+        e organizados de forma facilitar e agilizar o envio dos dados de venda do WhatsApp.
+    </p>
+    <p><b>Texto para ser enviado pelo WhatsApp</b>:</p>
+</div>
+
+<div class="WPP">
+    <textarea id="textarea_wpp" style="width: 100%;margin: 0px;height: 300px; resize: none;" disabled>
+        *✮✬✯✰VALORES VÁLIDOS PARA COMPRAS REALIZADAS DIRETAMENTE COM A POUSADA✰✯✬✮*
+        Valor do pacote com  “{{ dialy_alfa }}” diárias de {{ checkin }} A {{ checkout }}  por suíte/{{ suite }} para {{ person_alfa }}
+        _DE {{ dialy_price }}_ por *{{ discount_price }}* com café da manhã
+        Opções de Pagamento. (Escolha uma das opções abaixo):
+        1ª. Opção = *{{ discount_price }}*  = 50% na reserva + 50% no check-in (cartão ou depósito)
+        2ª. Opção = *{{ discount_price }}*  = em 4X sem juros  sendo 1ª no ato ato da reserva via deposito + {{ portion }}X sem juros no cartão(passar dados do cartão no ato da reserva);
+        3ª. Opção = *{{ discount_in_discount }}* =  com 5% desconto para pagto. a vista  (depósito integral na reserva = Itaú  ou Santander)
+        OBS: Valor Promocional sujeito a alteração sem prévio aviso, valores não validos para feriados prolongados. Gratuidade para uma criança até 06 anos na mesma suíte dos Pais em todas as opções... Temos berço
+    </textarea>
+</div>
+<canvas id="myCanvas" width="1080" height="1080" style="border:1px solid #d3d3d3; width: 100%;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<a id="download" download="cotação{{ dados.pk }}.png">
+    <button class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" type="button" onClick="download()">Download</button>
+</a>
+
+<script type="text/javascript">
+var srcimage = "{% static '/image/casadepedra/casadepedra.jpg' %}"
+</script>
+<script type="text/javascript" src="{% static '/js/canvas_image.js' %}"></script>
+<script type="text/javascript" src="{% static '/js/image_download.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">{% csrf_token %}
+    <div class="alert alert-danger" role="alert">
+        Você que mesmo apagar a Cotação"{{ object.checkin }} á {{ object.checkout }}"?
+    </div>
+    <input class="btn btn-success" type="submit" value="Aceita">
+    <a class="btn btn-danger" href="{% url 'home' %}" role="button">Cancelar</a>
+</form>
+{% endblock %}

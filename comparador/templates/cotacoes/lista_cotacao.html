@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head %}
+<link href="{% static '/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block base %}
+
+{{ model.checkin }}
+
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Check-In</th>
+                  <th>Check-Out</th>
+                  <th>N° Adultos</th>
+                  <th>N° Crianças</th>
+                  <th>Pousada / Valor</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                  </tr>
+            </tfoot>
+              
+            <tbody>
+                {% for cotações in object_list %}
+                  <tr>
+                    <td><a href="{% url 'editar_todas_cotações' pk=cotações.pk %}">{{ forloop.counter}}</a></td>
+                    <td>{{ cotações.checkin }}</td>
+                    <td>{{ cotações.checkout }}</td>
+                    <td>{{ cotações.num_adultos }}</td>
+                    <td>{{ cotações.num_crianças }}</td>
+                    <td>
+                      <table>
+                        <thead>
+                            <tr>
+                                <th>Pousada</th>
+                                <th>Valor</th>
+                              </tr>
+                          </thead>
+                        <tbody>
+                          {% for nome in cotações.valor.all %}
+                            <tr>
+                              <th scope="row" class='nome_pousada'><a href="{% url 'editar_pousada' pk=nome.cotacao.pk %}">{{ nome.cotacao }}</a></th>
+                              <td class='valor_pousada'>R$ {{ nome.valor_monetario }}</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static '/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{% static '/js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
+
+

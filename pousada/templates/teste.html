@@ -1,0 +1,48 @@
+
+{% load staticfiles %}
+{% if form.errors %}
+{% for field in form %}
+{% for error in field.errors %}
+{{ error|escape }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+<div class="w3-container" id="Adicionar" style="margin-top:85px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Adicionar Cotação</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Informe os dados do hospede no formulário abaixo, para que possa esta fazer a cotação.</p>
+    <form method="post">{% csrf_token %}
+ <input type="hidden" name="author" value="{{ user.id }}" id="id_author" required="">
+        <label for="id_name">Nome:</label>
+        <div class="name">{{ form.name }}</div>
+        <label for="id_name">Telefone:</label>
+        <div class="name">{{ form.tel }}</div>
+        <label for="id_checkin_day">Check In:</label>
+        <div class="checkin">{{ form.checkin }}</div>
+        <label for="id_checkout_day">Check Out:</label>
+        <div class="checkout">{{ form.checkout }}</div>
+        <label for="id_person_num">Numero de Pessoas:</label>
+        <div class="person_num">{{ form.person_num }}</div>
+        <label for="id_person_num">Tem Criança:</label>
+        <div class="person_num">{{ form.kidquestion }}</div>
+        <div class="beginsHidden2" id="pickNumber">
+        <label for="id_person_num">Qual é a Idade:</label>
+        <div class="person_num">{{ form.kidyears }}</div></div>
+        <label for="id_discount">Disconto Inicial:</label>
+        <div class="discount">{{ form.discount }}</div>
+
+        <label for="id_dialy_of_price">Valor da Diaria:</label>
+        <div class="dialy_of_price" placeholder="Digite um valor">
+            R${{ form.dialy_of_price }}
+        </div>
+        <label for="id_dialy_of_price2">Valor da Diaria:</label>
+        <div class="dialy_of_price" placeholder="Digite um valor">
+            R${{ form.valorsite }}
+        </div>
+        <label for="id_portion">Numero de Parcelas</label>
+        <div class="portion">{{ form.portion }}</div>
+        <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Adicionar Cotação
+        </button>
+    </form>
+</div>
